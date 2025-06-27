@@ -154,7 +154,7 @@ start_micro() {
   local script_inicio2="$1"
   local directorio=$2
   local ap=$3
-  if [[ $ap == *.jar ]]; then
+  if [[ $ap == *.jar || $ap == *.properties ]]; then
 
 	  echo "start_micro:: ejecutando $script_inicio2 para los micro de  $ap"
 	  su - "$usuario_app" -c "sh $script_inicio2" >/dev/null 2>&1 #sube todo lo que encuentre abajo
@@ -167,7 +167,7 @@ start_micro() {
 		  apps_con_diferencias+=("$destino: NO HAY PID DE LOS PROCESOS DE $directorio/$ap")
 	  fi
   else
-  	echo "start_micro:: No Aplica , porque properties no levanta proceso"
+  	echo "start_micro:: No Aplica , no levanta proceso el componente actualizado"
   fi
 }
 
