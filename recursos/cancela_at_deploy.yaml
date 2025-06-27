@@ -1,0 +1,12 @@
+---
+- hosts: jboss
+  remote_user: deployuser
+  gather_facts: false
+  vars:
+    app_play: 'NO APLICA'
+  tasks:
+    - name: Match a command to an existing job and delete the job
+      ansible.posix.at:
+        command: template_deploy_CR9910.sh
+        state: absent
+

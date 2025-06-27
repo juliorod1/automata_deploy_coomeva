@@ -1,0 +1,24 @@
+#SPDX-License-Identifier: MIT-0
+---
+##Definicion y calculo de variables para programar hora de ejecución.
+
+now_datetime: "{{ '%Y-%m-%d %H:%M'|strftime }}"
+#at_seconds: "{{ ((at_datetime|to_datetime) - (now_datetime|to_datetime('%Y-%m-%d %H:%M'))).seconds }}"
+at_seconds: "{{ ((at_datetime|to_datetime('%Y-%m-%d %H:%M')) - (now_datetime|to_datetime('%Y-%m-%d %H:%M'))).seconds }}"
+at_minutes: "{{ (at_seconds|int /60)|int + 1 }}"
+# vars file for deploy_jboss en template.
+local_ejecutado: /home/scripts/automata_ansible/jboss/historico_ejecutado
+local_ruta: /home/scripts/automata_ansible/jboss
+dest_template: /home/deployuser/bin
+dest_files: /home/deployuser/deploy
+dest_log: /home/deployuser/logs
+usuario_aplicacion: jboss
+grupo_aplicacion: jboss
+at_datetime: "2025-06-11 19:05"
+cambio: CRQ99995
+servidor: cdplin141
+apps: "PPT-Web.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan@kyndryl.com"
+archivos_a_transferir:
+ - PPT-Web.war

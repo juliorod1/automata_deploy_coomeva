@@ -1,0 +1,12 @@
+/opt/jboss-as-7.1.1.Final/standalone/deployments/admincem-web.war
+/opt/jboss-as-7.1.1.Final/standalone/deployments/cem-pir.war
+/opt/jboss-as-7.1.1.Final/standalone/deployments/invcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone/deployments/portalcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone/deployments/sitacem-web.war
+/opt/jboss-as-7.1.1.Final/standalone/deployments/hcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/samc-web.war
+/opt/jboss-as-7.1.1.Final/standalone_04/deployments/sso-web.war
+/opt/jboss-as-7.1.1.Final/standalone_04/deployments/SIVentas.war
+/opt/jboss-as-7.1.1.Final/standalone_04/deployments/sig-web.war
+/opt/jboss-as-7.1.1.Final/standalone_06/deployments/profilemp-web.war
+/opt/jboss-as-7.1.1.Final/standalone_06/deployments/monitorERP-web.war

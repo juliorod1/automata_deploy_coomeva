@@ -1,0 +1,6 @@
+at_datetime: "2025-05-15 19:00"
+cambio: 123
+servidor: cdplin139
+apps: "coreprovi.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co 123"

@@ -1,0 +1,9 @@
+/opt/jboss-as-7.1.1.Final/standalone/deployments/counter.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/helloworld15.war
+/opt/jboss-eap-7.2/standalone/deployments/fabrica_soluciones.war
+/opt/jboss-eap-7.2/standalone/deployments/helloworld.war
+/opt/jboss-eap-7.2/standalone/deployments/sor-web18.war
+/opt/jboss-eap-7.2/standalone_01/deployments/counter.war
+/opt/jboss-4.2.2.GA/default/deploy/listener.war
+/opt/jboss-4.2.2.GA/default/deploy/counter.war
+/opt/jboss-4.2.2.GA/default/deploy/helloworld1.war

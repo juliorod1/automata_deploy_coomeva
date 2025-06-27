@@ -1,0 +1,18 @@
+---
+- name: Cancelar tarea programada con 'at'
+  hosts: all # O especifica un grupo de hosts: ej. webservers
+  become: yes # Necesitarás permisos para gestionar tareas 'at', a menudo requiere sudo/root
+  vars:
+    app_play: 'NO APLICA'
+  tasks:
+    - name: Eliminar la tarea 'at' especificada por su comando
+      ansible.builtin.at:
+        #command: "/path/to/your/script.sh --option" #¡IMPORTANTE! Reemplaza esto con el comando EXACTO de la tarea que quieres cancelar
+        command: "{{app_play}}" #¡IMPORTANTE! Reemplaza esto con el comando EXACTO de la tarea que quieres cancelar
+        state: absent
+      register: at_result # Opcional: registra el resultado de la operación
+
+    - name: Mostrar resultado (opcional)
+      debug:
+        var: at_result
+      when: at_result is defined # Muestra el resultado solo si la variable se registró

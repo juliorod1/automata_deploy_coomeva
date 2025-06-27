@@ -1,0 +1,12 @@
+---
+- hosts: jboss
+  remote_user: deployuser
+  gather_facts: false
+  vars:
+    app_play: 'NO APLICA'
+  tasks:
+    - name: Tareas a en PLAY reservado
+      shell:
+        cmd: echo Tareas a en PLAY
+  roles:
+    - deploy_jboss

@@ -1,0 +1,5 @@
+at_datetime: "2025-05-28 11:50"
+cambio: CRQ000000XXXX931
+servidor: cdplin93
+aplicaciones: "/opt/microservices/transparencia/eureka-transparencia.jar;/opt/microservices/transparencia/scripts/subir_transparencia.sh;0 "
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan juan"

@@ -1,0 +1,15 @@
+at_datetime: "2025-06-06 19:00" #Hora de programacion
+cambio: CRQ008889
+servidor: CDPAIX10
+crea_ge: NO  #creará un grupo de ejecucion
+nombre_broker:
+nom_ge:  #nombre del grupo de ejecucion
+aplicaciones: "UrbanPiloto;UrbanPiloto.bar;0;IIBQA " #bar a desplegar, grupo, reinicio
+crea_mqc: 1 #creará una cola en el MQ
+nom_gestorMQ: WMQQA #nombre del MQ
+script_colaMQ: sql.mqsc
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co jhonfreddy.osorio@kyndryl.com edwin.giraldo@kyndryl.com juan@kyndryl.com"
+archivos_a_transferir:
+ - NO_APLICA
+ - UrbanPiloto.bar
+ - sql.mqsc

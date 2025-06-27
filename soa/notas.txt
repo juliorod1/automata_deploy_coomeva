@@ -1,0 +1,7 @@
+ssh -l mqm CDPAIX10
+PdovVPcjd2av!bZuc2g*
+
+/var/mqm/automation
+
+
+ansible-playbook -i inventory.ini tu_playbook.yml -K

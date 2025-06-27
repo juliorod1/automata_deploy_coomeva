@@ -1,0 +1,16 @@
+at_datetime: "2025-06-25 19:00" #Hora de programacion
+cambio: CRQ10101
+servidor: CDPAIX10
+crea_ge: 1  #creará un grupo de ejecucion
+nombre_broker: IIBQA
+nom_ge: urban_piloto2 #nombre del grupo de ejecucion
+aplicaciones: "urban_piloto2;urban_piloto2.bar;1;IIBQA " #bar a desplegar, grupo, reinicio
+crea_mqc: 1 #creará una cola en el MQ
+nom_gestorMQ: WMQQA #nombre del MQ
+script_colaMQ: WMQQA.sql
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co jhonfreddy.osorio@kyndryl.com edwin.giraldo@kyndryl.com juan"
+archivos_a_transferir:
+ - NO_APLICA
+ - urban_piloto2.bar
+ - WMQQA.sql
+***CAMBIO CANCELADO en [CDPAIX10] *****

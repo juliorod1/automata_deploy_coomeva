@@ -1,0 +1,14 @@
+/opt/jboss-eap-7.1/standalone_02/deployments/pse.front-2.25.2-24e1ec9b-20250308.032028-1.war
+/opt/jboss-eap-7.1/standalone_02/deployments/pse.back.ws-2.25.2-24e1ec9b-20250308.031909-1.war
+/opt/jboss-eap-7.1/standalone_02/deployments/psehosting.back.ws-2.3.0.0-6649314a.war
+/opt/jboss-eap-7.1/standalone_02/deployments/pse.ws-2.25.2-24e1ec9b-20250308.032109-1.war
+/opt/jboss-eap-7.1/standalone_02/deployments/psehosting.front-2.1.0.0.war
+/opt/jboss-eap-7.1/standalone_04/deployments/OtorgamientoWeb.war
+/opt/jboss-eap-7.1/standalone/deployments/comprobante.email.ws-0.0.1-SNAPSHOT.war
+/opt/jboss-eap-7.1/standalone_03/deployments/movimientos.email.api.war
+/opt/jboss-eap-7.1/standalone_03/deployments/exportar.email.api.war
+/opt/jboss-eap-7.1/standalone_06/deployments/subscriber.bcco.web.war
+/opt/jboss-eap-7.1/standalone_06/deployments/listasRestrictivas.war
+/opt/jboss-eap-7.1/standalone_06/deployments/chatbox.war
+/opt/jboss-eap-7.1/standalone_06/deployments/novedadesCartera.war
+/opt/jboss-eap-7.1/standalone_05/deployments/ListaUnificadaBCO.war

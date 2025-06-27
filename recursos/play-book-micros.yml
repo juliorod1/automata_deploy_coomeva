@@ -1,0 +1,51 @@
+- name: Desplegar microservicios en el servidor {{ servidor }}
+  hosts: "{{ servidor }}" # Utiliza la variable servidor para el host target
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: Transferir script de despliegue
+      copy:
+        src: deploy_template.sh
+        dest: /tmp/deploy_template.sh
+        mode: '0755'
+
+    - name: Ejecutar script de despliegue
+      shell: /tmp/deploy_template.sh
+      register: resultado_deploy
+      # Puedes agregar 'async' y 'poll' si la ejecución es larga
+
+    - name: Mostrar resultado del despliegue
+      debug:
+        var: resultado_deploy.stdout_lines
+
+    # Tareas adicionales para manejo de errores, notificaciones, etc.
+    #
+---
+- name: Desplegar Microservicios en {{ servidor }}
+  hosts: "{{ servidor }}"
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: Crear directorio temporal para el script
+      file:
+        path: /tmp/ansible_deploy
+        state: directory
+
+    - name: Transferir script de despliegue template
+      template:
+        src: deploy_template.sh.j2  # Tu script shell actualizado (ver contenido abajo)
+        dest: /tmp/ansible_deploy/deploy_script.sh
+        mode: '0755'
+
+    - name: Programar ejecución del script de despliegue usando 'at'
+      ansible.posix.at:
+        command: "SHELL=/bin/bash /tmp/ansible_deploy/deploy_script.sh"
+        time: "{{ at_minutes }} minutes from now" # O podrías usar at_datetime si prefieres una hora específica
+      become: yes
+
+    - name: Opcional: Limpiar directorio temporal después de programar
+      file:
+        path: /tmp/ansible_deploy
+        state: absent
+      when: false # Cambiar a 'true' si quieres eliminar el directorio después de la programación
+

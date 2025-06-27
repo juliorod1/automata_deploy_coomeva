@@ -1,0 +1,8 @@
+at_datetime: "2025-06-11 19:05"
+cambio: CRQ99995
+servidor: cdplin141
+apps: "PPT-Web.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan@kyndryl.com"
+archivos_a_transferir:
+ - PPT-Web.war

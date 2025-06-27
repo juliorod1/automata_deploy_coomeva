@@ -1,0 +1,5 @@
+at_datetime: "2025-05-27 19:00"
+cambio: CRQ000000XXXX93
+servidor: cdplin93
+aplicaciones: "/opt/microservices/mercadeo-microservice/crm/micros/crm-vinculacion-auth-server-0.0.1.jar;/opt/microservices/mercadeo-microservice/crm/scripts/subir_mercadeo-microservice.sh;1 /opt/microservices/taylor/eureka-taylor.jar;/opt/microservices/taylor/scripts/subir_taylor.sh;1 "
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan"

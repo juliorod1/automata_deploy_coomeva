@@ -1,0 +1,18 @@
+Puntos clave de la integración:
+
+Variables de Ansible: El script ahora utiliza las variables de Ansible ({{ servidor }}, {{ aplicaciones }}, {{ emails }}, {{ cambio }}) para configurarse dinámicamente.
+Asignación de usuario_app: Se ha integrado la lógica del case para asignar el usuario de la aplicación basado en el valor de la variable servidor enviada por Ansible.
+Procesamiento de la lista de aplicaciones: Se utiliza un bucle for y el comando read con el delimitador ; para procesar la variable aplicaciones. Se espera que la variable aplicaciones en tu vars/main.yml tenga un formato como:
+
+
+aplicaciones: "api-gateway-microbus.jar;/opt/microservicios/microbus/scripts/subir_microbus.sh;1 fabrica-soluciones-cotizador.jar;/opt/contenerizacion/microservices/scripts/subir_micros.sh;0"
+
+Ojo: En el template inicial, la variable aplicaciones usa ; como separador dentro de cada entrada, pero también espacios entre las entradas. El script integrado asume este formato. Deberás asegurarte de que la variable aplicaciones en tu vars/main.yml coincida con este formato.
+Rutas de despliegue: He asumido que la ruta de despliegue de las aplicaciones es constante (/opt/contenerizacion/microservices/). Si esto varía, deberás ajustar el script.
+Script de inicio: He asumido una ruta constante para el script de inicio (/opt/contenerizacion/microservices/scripts/subir_micros.sh). Si esto varía por servidor o aplicación, también deberás parametrizarlo.
+Comentarios: He añadido comentarios para aclarar los cambios.
+Cómo usar este script con Ansible:
+
+Guarda este script como un archivo (por ejemplo, deploy_template.sh) en tu máquina de control de Ansible.
+En tu playbook de Ansible, utiliza el módulo script o shell para ejecutar este script en los servidores remotos. Ansible se encargará de reemplazar las variables entre dobles llaves con los valores definidos en tu inventario y archivos de variables.
+

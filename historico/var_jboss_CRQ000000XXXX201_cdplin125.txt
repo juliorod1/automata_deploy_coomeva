@@ -1,0 +1,6 @@
+at_datetime: "2025-04-23 19:00"
+cambio: CRQ000000XXXX201
+servidor: cdplin125
+apps: "sor-web18.war "
+reinicio: 1
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan@kyndryl.com"

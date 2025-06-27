@@ -1,0 +1,19 @@
+
+
+######################################################################
+#Iniciando despliegue en la instancia 'standalone-coomeva' del 'jboss-eap-7.1'
+######################################################################
+
+La aplicación helloworld.war no existe en /home/scripts/automata_ansible o en /opt/jboss-eap-7.1/standalone-coomeva/deployments.
+Validar si se debe hacer un despliegue nuevo y la existencia en /home/scripts/automata_ansible/helloworld.war
+
+
+######################################################################
+#Iniciando despliegue en la instancia 'standalone-coomeva' del 'jboss-eap-7.1'
+######################################################################
+
+La aplicación helloworld.war no existe en /home/scripts/automata_ansible o en /opt/jboss-eap-7.1/standalone-coomeva/deployments.
+Validar si se debe hacer un despliegue nuevo y la existencia en /home/scripts/automata_ansible/helloworld.war
+FINALIZA EJECUCION.... CAMBIO EXITOSO
+notificando cambio exitoso.
+enviando notificación mail.

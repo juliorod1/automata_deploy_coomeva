@@ -1,0 +1,96 @@
+#- name: Desplegar múltiples archivos war para jboss
+#  hosts: soa
+#  vars:
+#    otro: otro
+    - name: Verificar si el archivo local existe en el controller
+      stat:
+        path: "{{ local_ruta }}/{{ item }}"
+      register: archivo_verificado
+      with_items: "{{ archivos_a_transferir | reject('equalto', 'NO_APLICA') | list }}"
+      delegate_to: localhost
+
+    - name: valida si archivo existe,  sino existe  FALLA playbook
+      fail:
+        msg: "Error: El archivo local '{{ item.invocation.module_args.path }}' NO EXISTE. No se puede realizar la transferencia."
+      loop: "{{ archivo_verificado.results }}"
+      when: not item.stat.exists
+      delegate_to: localhost
+
+    - name: Copiar archivo al servidor remoto {{ servidor }} (solo si existe localmente)
+      copy:
+        src: "{{ local_ruta }}/{{ item.item }}"
+        dest: "{{ dest_files }}/{{ cambio }}/"
+        owner: "{{ usuario_aplicacion }}"
+        group: "{{ grupo_aplicacion }}"
+        mode: '0644'
+      loop: "{{ archivo_verificado.results }}"
+      when: item.stat.exists
+  #### ejecutando template para jboss
+    - name: Template script shell install_app_jboss.sh para desplegar app jboss {{servidor}}
+      ansible.builtin.template:
+        src: /ansible/deploy_jboss/templates/template_deploy.sh
+        dest: /home/deployuser/bin/template_deploy_{{cambio}}.sh
+        owner: deployuser
+        group: deployuser
+        mode: '0755'
+
+    - name:  calculándo  ejecución remota
+      debug:
+        msg: |
+          now_datetime: {{ now_datetime }}
+          at_datetime: {{at_datetime}}
+          at_seconds: {{at_seconds}}
+          at_minutes: {{at_minutes}}
+
+    - name: programando ejecucion
+      ansible.posix.at:
+        #script_file: /home/deployuser/bin/install_app_jboss_{{cambio}}.sh > /home/deployuser/log/{{cambio}}.log
+        command: /home/deployuser/bin/template_deploy_{{cambio}}.sh > /home/deployuser/logs/log_ejecucion_{{cambio}}.log
+        count: "{{ at_minutes }}"
+        units: minutes
+
+    - name: Verificando programación.
+      command: at -l
+      register: out
+
+    - name: Muestra programación at-l
+      debug:
+        var: out.stdout
+#move archivos locales del cambio a historico
+    - name: Creando directorio de destino fs compartido local si no existe
+      file:
+        path: "{{ local_ejecutado }}/{{ cambio }}/"
+        state: directory
+      delegate_to: localhost
+      ignore_errors: yes
+
+    - name: Moviendo archivos al directorio {{ local_ejecutado }}/{{ cambio }}
+      copy:
+        src: "{{ local_ruta }}/{{ item }}"
+        dest: "{{ local_ejecutado }}/{{ cambio }}/"
+        remote_src: yes  # Indica que la fuente está en el host donde se ejecuta este playbook (localhost)
+        seuser: system_u
+        serole: object_r
+        #setype: cifs_t
+        selevel: s0
+        setype: unconfined_t
+        #secontext: system_u:object_r:cifs_t:s0 #Selinux, tener en cuenta el contexto
+      loop: "{{ archivos_a_transferir }}"
+      ignore_errors: yes
+      delegate_to: localhost
+
+
+    - name: Eliminar archivos del directorio local original (excepto el excluido)
+      file:
+        path: "{{ local_ruta }}/{{ item }}"
+        state: absent
+      loop: "{{ archivos_a_transferir }}"
+      ignore_errors: yes
+      delegate_to: localhost
+
+    - name: Opcional- Mostrar los archivos movidos
+      debug:
+        msg: "Archivo movido: {{ item }}"
+      loop: "{{ archivos_a_transferir }}"
+      ignore_errors: yes
+      delegate_to: localhost

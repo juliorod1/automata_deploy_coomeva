@@ -1,0 +1,43 @@
+---
+###  transferir multiples archivo
+- name: Desplegar múltiples archivos para SOA-scripts creacion de colas y bar
+  hosts: soa
+  vars:
+    cambio1: CRQ999999
+    archivos_a_transferir:
+      - script-prueba.mqsc
+      - aplicacion3.bar
+      - aplicacion2.bar
+    ruta_archivo_local: /home/scripts/automata_ansible/Broker
+    ruta_destino_remoto: /home/deployus/deploy/{{ cambio1 }}
+    usuario_aplicacion: mqm
+    grupo_aplicacion: mqm
+  tasks:
+    - name: Verificar si el archivo local existe en el controller
+      stat:
+        path: "{{ ruta_archivo_local }}/{{ item }}"
+      register: archivo_verificado
+      with_items: "{{ archivos_a_transferir }}| reject('equalto', 'NO_APLICA') | list }}"
+      delegate_to: localhost
+
+    - name: Mostrar mensaje si el archivo no existe
+      fail:
+        msg: "Error: El archivo local '{{ item.invocation.module_args.path }}' no existe. No se puede realizar la transferencia."
+      loop: "{{ archivo_verificado.results }}"
+      when: not item.stat.exists
+
+    - name: Mostrar mensaje si el archivo SI existe
+      debug:
+        msg: "OK: El archivo local '{{ item.invocation.module_args.path }}' SI existe. SI se puede realizar la transferencia."
+      loop: "{{ archivo_verificado.results }}"
+      when: item.stat.exists  
+
+    - name: Copiar archivo al servidor remoto (solo si existe localmente)
+      copy:
+        src: "{{ ruta_archivo_local }}/{{ item.item }}"
+        dest: "{{ ruta_destino_remoto }}/"
+        owner: "{{ usuario_aplicacion }}"
+        group: "{{ grupo_aplicacion }}"
+        mode: '0644'
+      loop: "{{ archivo_verificado.results }}"
+      when: item.stat.exists and item.item != 'NO_APLICA'

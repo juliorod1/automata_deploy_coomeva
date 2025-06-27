@@ -1,0 +1,32 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Template script shell template_broquer.sh para desplegar app broquer {{servidor}}
+  ansible.builtin.template:
+    src: /ansible/deploy_soa/templates/template_broquer.sh
+    dest: {{dest_template}}/template_deploy_{{cambio}}.sh
+    owner: mqm
+    group: mqm
+    mode: '0755'
+
+- name:  calculándo  ejecución remota
+  debug:
+    msg: |
+      now_datetime: {{ now_datetime }}
+      at_datetime: {{at_datetime}}
+      at_seconds: {{at_seconds}}
+      at_minutes: {{at_minutes}}
+
+- name: programando ejecucion
+  ansible.posix.at:
+    command: SHELL=/bin/bash su - mqm -c "/usr/bin/bash {{dest_template}}/template_deploy_{{cambio}}.sh > {{dest_log}}/log_ejecucion_soa_{{cambio}}.log"
+    count: "{{ at_minutes }}"
+    units: minutes
+  become: yes
+
+- name: Verificando programación.
+  command: at -l
+  register: out
+
+- name: Muestra programación at-l
+  debug:
+    var: out.stdout

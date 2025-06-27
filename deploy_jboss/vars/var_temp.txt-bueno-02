@@ -1,0 +1,11 @@
+#SPDX-License-Identifier: MIT-0
+---
+##Definicion y calculo de variables para programar hora de ejecución.
+
+now_datetime: "{{ '%Y-%m-%d %H:%M'|strftime }}"
+#at_seconds: "{{ ((at_datetime|to_datetime) - (now_datetime|to_datetime('%Y-%m-%d %H:%M'))).seconds }}"
+at_seconds: "{{ ((at_datetime|to_datetime('%Y-%m-%d %H:%M')) - (now_datetime|to_datetime('%Y-%m-%d %H:%M'))).seconds }}"
+at_minutes: "{{ (at_seconds|int /60)|int + 1 }}"
+# vars file for deploy_jboss en template.
+version: "jboss-eap-7.2"
+instancia: "standalone_01"

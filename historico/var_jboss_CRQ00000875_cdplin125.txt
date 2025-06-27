@@ -1,0 +1,9 @@
+at_datetime: "2025-06-06 19:00"
+cambio: CRQ00000875
+servidor: cdplin125
+apps: "counter.war listener.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co jua@xxxx.com"
+archivos_a_transferir:
+ - counter.war
+ - listener.war

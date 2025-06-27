@@ -1,0 +1,2 @@
+/opt/jboss-as-7.1.1.Final/standalone/deployments/mso-app.ear
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/mso-app.ear

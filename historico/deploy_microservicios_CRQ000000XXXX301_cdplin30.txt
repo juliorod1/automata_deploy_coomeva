@@ -1,0 +1,5 @@
+at_datetime: "2025-05-28 12:00"
+cambio: CRQ000000XXXX301
+servidor: cdplin30
+aplicaciones: "/opt/td-microservice/micros/micoomeva.coomeva.alianzas-0.0.1.jar;/opt/td-microservice/scripts/subir_micoomeva.sh;0 "
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan juan juan"

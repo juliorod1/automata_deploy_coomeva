@@ -1,0 +1,6 @@
+at_datetime: "2025-05-12 19:00"
+cambio: 123
+servidor: CDPAIX10
+apps: "file5.bar file.bar "
+reinicio: 1
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co 123"

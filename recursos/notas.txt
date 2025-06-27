@@ -1,0 +1,7 @@
+-Validar que la aplicación exista en el servidor target, sino no calcula nada de version, ni isntancia etc
+-sino existe el listwars hay que crearlo o garantizarlo en todos los servers de jboss
+-En el template script shell limitar el while al deploy_check sin incluir los if y limitarlo a unas 5 validaciones con intervalos de tiempo como 10 sgs, porque sino encuentra a  deploy_check empieza a marcar como fallido... o mirar de qué otra forma
+  # Esperar a que el despliegue se complete
+      while true; do
+
+

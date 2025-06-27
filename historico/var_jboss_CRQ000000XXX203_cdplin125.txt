@@ -1,0 +1,6 @@
+at_datetime: "2025-04-24 19:00"
+cambio: CRQ000000XXX203
+servidor: cdplin125
+apps: "fabrica_soluciones.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan"

@@ -1,0 +1,6 @@
+at_datetime: "2025-05-14 19:00"
+cambio: CRQ000000XXXX70
+servidor: cdplin125
+apps: "helloworld.war "
+reinicio: 0
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan@kyndryl.com"
