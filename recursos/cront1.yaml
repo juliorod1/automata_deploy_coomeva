@@ -1,0 +1,30 @@
+- hosts: jboss
+  remote_user: deployuser
+
+  vars:
+    now_datetime: "{{ '%Y-%m-%d %H:%M'|strftime }}"
+    at_datetime: "2025-04-10 14:05"
+    at_seconds: "{{ ((at_datetime | to_datetime('%Y-%m-%d %H:%M')) - (now_datetime | to_datetime('%Y-%m-%d %H:%M'))).seconds }}"
+    at_minutes: "{{ (at_seconds|int /
+    60)|int + 1 }}"
+
+  tasks:
+
+    - debug:
+        msg: |
+          now_datetime: {{ now_datetime }}
+          at_datetime: {{ at_datetime }}
+          at_seconds: {{ at_seconds }}
+          at_minutes: {{ at_minutes }}
+
+    - ansible.posix.at:
+        command: /home/deployuser/bin/install_app_jboss_CR9992.sh > /home/deployuser/logs/install_app_jboss_CR1111.txt
+        #script_file: /home/deployuser/bin/install_app_jboss_CR9992.sh
+        count: "{{ at_minutes }}"
+        units: minutes
+
+    - command: at -l
+      register: out
+
+    - debug:
+        var: out.stdout

@@ -1,0 +1,7 @@
+/opt/microservicios/adm/scripts/subir_adm.sh
+/opt/microservicios/dataQuality/scripts/subir_dataQuality.sh
+/opt/microservicios/horadecuidarmev2/scripts/subir_horadecuidarmev2.sh
+/opt/microservicios/microbus/scripts/subir_microbus.sh
+/opt/microservicios/nrcp/scripts/subir_nrcp.sh
+/opt/microservicios/ova/scripts/subir_ova.sh
+/opt/microservicios/referidos/scripts/subir_referidos.sh

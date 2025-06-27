@@ -1,0 +1,5 @@
+at_datetime: "2025-05-28 18:00"
+cambio: CRQ000000324022
+servidor: cdplin81
+aplicaciones: "/opt/microservicios/referidos/referidos-back.jar;/opt/microservicios/referidos/scripts/subir_referidos.sh;0 /opt/microservicios/referidos/application.properties;/opt/microservicios/referidos/scripts/subir_referidos.sh;0 "
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co jhonm_cuetia@coomeva.com.co"

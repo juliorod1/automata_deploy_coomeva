@@ -1,0 +1,5 @@
+BIP8221I: Broker: IIBPRD (Version v9.0)  -  WMQPRD
+BIP1376I: Integration node IIBPRD_HAN1
+QMNAME(WMQPRD)                                            STATUS(Ended immediately)
+QMNAME(WMQPRD_HAN2)                                       STATUS(Ended immediately)
+QMNAME(WMQPRD_HAN1)                                       STATUS(Running)

@@ -1,0 +1,5 @@
+at_datetime: "2025-05-28 07:37"
+cambio: CRQ000000XXXX812
+servidor: cdplin81
+aplicaciones: "/opt/microservicios/ova/application.properties;/opt/microservicios/ova/scripts/subir_ova.sh;0 /opt/microservicios/ova/ova-back.jar;/opt/microservicios/ova/scripts/subir_ova.sh;0 "
+emails: "juliorod@kyndryl.com william.caicedo1@kyndryl.com david.naranjo.torres@kyndryl.com joan.alexis.guisao@kyndryl.com johan.lopera@kyndryl.com dlborjac@kyndryl.com robertoa_bravo@coomeva.com.co juan"

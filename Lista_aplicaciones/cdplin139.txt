@@ -1,0 +1,1 @@
+/opt/jboss-as-7.1.1.Final/standalone/deployments/coreprovi.war

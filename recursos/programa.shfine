@@ -1,0 +1,192 @@
+#####WME Kyndryl Colombia Marzo/2023 - Autor: Julio Cesar Rodriguez Ibague, William Caicedo- Version: 1.0######
+
+PROJECT_HOME="/ansible"
+prog=1
+clear
+echo "			AUTOMATIZACION DESPLIEGUE APPLICACIONES COOMEVA"
+echo "			==============================================="
+echo
+#funcion desplegar con ansible
+deploy()
+{
+list_servers=$2
+CR=$1
+clear
+for server in $list_servers; do
+  clear
+  echo
+  echo ===PROGRAMANDO PARA EL SERVIDOR $server=====
+  echo
+  echo Recuperando listado de aplicaciones del servidor..... wait...
+  echo Listado de Aplicaciones Disponibles en $server
+  echo ======================================================================
+  list_wars=""
+  echo   "APLICACIONES DISPONIBLE PARA $server"
+  opciones=(`cat Lista_aplicaciones/$server.txt|awk 'BEGIN{FS="/"} { print $6 }'` Continuar)
+  PS3="                            Elige una opción:   para continuar.."
+  select opt in "${opciones[@]}"
+  do
+      for i in "${opciones[($REPLY-1)]}"; do
+       #echo el valor de REPLY es: $REPLY y "${opciones[($REPLY-1)]}"
+      if [ $REPLY  ]; then
+         #echo valor de REPLY es: $REPLY y de i es: $i
+         if [ "$i" != "Continuar" ]; then
+            #echo "REPLY es: $REPLY" y de i es $i
+            #app="$app $i"
+            list_wars=""$list_wars" "${opciones[($REPLY-1)]}""
+            echo Aplicaciones selecionadas son: $list_wars
+         else
+            #echo Aplicaciones selecionadas son: $list_wars
+            break 2
+         fi
+      fi
+      done
+  done
+  clear
+  echo   "APLICACIONES SELECCIONADAS  PARA $server:"
+  echo contenido de apps es: $list_wars
+
+  ###########
+  echo
+  echo Indique la Hora en la cual se ejecutará en el servidor $server esta actividad, en formato "yyyy-mm-dd hh:mm:ss"
+  echo
+  
+  alias date=gdate
+  ## se debe ingresar la fecha sin comillas, ni simples no dobles para que funcione la validacion
+  echo
+  echo "**Ingrese la fecha en el formato indicado en una sola linea y SIN comillas**"
+  echo Ejemplo: `date +"%Y-%m-%d 19:00:00"`
+  echo
+  now=`date +"%Y-%m-%d %H:%M:%S"`
+  #######mejorar acá para que no salga hasta que no ingrese una fecha buena
+  read at_tiempo
+  #gdate -d "$at_tiempo" >/dev/null 2>&1 && echo "Es una fecha en formato valido!!!" || echo "NO"
+  #a=`gdate -d "$at_tiempo" >/dev/null 2>&1 && echo "SI" || echo "NO"`
+  a=`date -d "$at_tiempo" >/dev/null 2>&1 && echo "SI" || echo "NO"`
+  echo  Esta es la fecha de ejecución que está ingresando: $at_tiempo  .. Vamos a comprobar que es válida..
+  echo
+  if [[ $now < $at_tiempo ]] && [ "$a" == "SI"  ]; then
+     echo fecha es valida para programar en el crontab la ejecución!!.
+  else
+     echo "****Fecha ingresada es INVALIDA!! revise que esté en el formato requerido y sea futura****"
+     sleep 5
+     break 
+  fi 
+  ########
+  echo Indique si requiere que la instancia de Jboss en $server sea reiniciada una vez se instale las aplicaciones $list_wars
+  echo el default/omision es No, Digite 0 para NO y 1 para SI.
+  read rein
+  ########
+  echo generando plantilla para $server... un momento...
+  sleep 3
+  echo at_datetime: '"'$at_tiempo'"' >$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  echo cambio: $CR >>$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  echo servidor: $server >>$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  echo apps: '"'$list_wars'"' >>$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  echo reinicio: $rein >>$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  echo emails: '"'$email'"' >>$PROJECT_HOME/var_jboss_"$CR"_"$server".txt
+  cat $PROJECT_HOME/deploy_jboss/vars/var_temp.txt > $PROJECT_HOME/deploy_jboss/vars/main.yml
+  cat $PROJECT_HOME/var_jboss_"$CR"_"$server".txt >> $PROJECT_HOME/deploy_jboss/vars/main.yml
+  mv $PROJECT_HOME/var_jboss_"$CR"_"$server".txt $PROJECT_HOME/historico/
+  cd $PROJECT_HOME
+ # echo esta linea ejecutara..
+  ##ansible-playbook --limit=$server  deploy-jboss.yml --extra-vars "cambio=$CR apps=$list_wars servidor=$server reinicio=$rein at_datetime=$at_tiempo"
+   ########
+
+   clear
+   echo ===RESUMEN DE PROGRAMACION PARA EL $cambio en $server ES LA SIGUIENTE:
+   cat $PROJECT_HOME/historico/var_jboss_"$CR"_*.txt $PROJECT_HOME/historico/cancelado_"$CR".txt
+   echo
+   echo Desea continuar con la programación...? digite 1 para continuar y 0 o cualquier tecla  para cancelar la programacion.
+   read nexts
+   echo usted ha digitado $nexts..
+   if [ $nexts == 1 ]; then
+      echo Inicia preparacion y envio de programación y ejecucion a $server...
+      ansible-playbook --limit=$server  deploy-jboss.yml 
+      sleep 10
+   else
+      echo cancelada la programación del cambio..
+      echo "***CAMBIO CANCELADO en $server *****"  >> $PROJECT_HOME/historico/var_jboss_"$CR"_"$server".txt
+      mv $PROJECT_HOME/historico/var_jboss_"$CR"_"$server".txt  $PROJECT_HOME/historico/cancelado_"$CR".txt
+      break 1
+   fi
+done
+clear
+echo ===RESUMEN DE PROGRAMACION PARA EL $cambio ES LA SIGUIENTE:
+cat $PROJECT_HOME/historico/var_jboss_"$CR"_*.txt $PROJECT_HOME/historico/cancelado_"$CR".txt
+echo Digite cualquier tecla  para  continuar..
+read pro
+}
+
+#===============Menu principal==
+while [ $prog  -eq 1 ]; do
+#PS3="Elige tu opción: "
+opciones=(			 "Deploy_jboss" "Deploy_micros" "Deploy_docker" "Deploy_tomcat" "Reinicios" "CheckList" "Reportes" "Salir" )
+PS3="				 Elige una opción:  ó ENTER para continuar.."
+select opt in "${opciones[@]}"
+do
+    case $opt in 
+
+        "Deploy_jboss") echo "Has elegido Programar  un  cambio en jboss para redesplegar applicaciones!!!! " 
+  		     echo Vamos a Ingresar la información minima necsaria para poder hacer esta tarea.
+         	     echo Indique el  numero de cambio:
+  		     echo Por ejemplo: CR9999
+ 		     read cambio
+		     clear
+		     echo   
+                     echo Vamos a Indicar la lista de correos a los cuales notificaremos el resultado de este cambio.
+     		     echo Escriba los buzones de correo en una misma linea separados por un espacio:
+		     read email
+		     echo
+  		     echo Seleccione de la Lista de  servidores de Jboss a desplegar:
+		     echo ===========servidores Disponibles=====
+
+		     servidores=""
+		     echo   "SERVIDORES DE JBOSS DISPONIBLES"
+		     opciones=(`cat hosts.cfg|grep servicios|awk 'BEGIN{FS=" "} { print $1 }'` Continuar)
+		     PS3="				 Elige una opción:   Para continuar.."
+		     select opt in "${opciones[@]}"
+		     do
+    		       for i in "${opciones[($REPLY-1)]}"; do
+      		       #echo el valor de REPLY es: $REPLY y "${opciones[($REPLY-1)]}"
+    		       if [ $REPLY  ]; then
+       			  #echo valor de REPLY es: $REPLY y de i es: $i
+       	 	       if [ "$i" != "Continuar" ]; then
+          		  #echo "REPLY es: $REPLY" y de i es $i
+          		  #servidores="$servidores $i"
+          		  servidores=""$servidores" "${opciones[($REPLY-1)]}""
+          		  echo Servidores selecionados son: $servidores
+                       else
+          		  echo Servidores selecionados son: $servidores
+ 			  sleep 2
+                          break 2
+       	 	       fi
+    		       fi
+    		       done
+	 	     done
+		     clear
+		   echo   "SERVIDORES SELECCIONADOS PARA ESTE CAMBIO:"
+		   echo - $servidores
+   		   deploy "$cambio" "$servidores"
+		   clear
+        ;;
+
+        "Deploy_micros") echo "Has elegido deploy_micros" 
+                date; 
+        ;;
+
+        "Deploy_docker") echo "Has elegido deploy_docker "
+                date; 
+        ;;
+
+        "Otros") echo "Has elegido gestionar Otras opciones"
+                date;
+        ;;
+        "Salir") break 2
+      
+        ;;
+        *) echo "Opcion no válida."
+    esac
+done
+prog=0
+done

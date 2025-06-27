@@ -1,0 +1,54 @@
+subscription-manager REDHAT 
+https://access.redhat.com/es/solutions/770843
+https://access.redhat.com/discussions/5a0bfecf-ea7b-4a79-831b-c966b6e7a854
+
+Using system-wide cryptographic policies
+Ensures maximum compatibility with Red Hat Enterprise Linux 6 and earlier; it is less secure due to an increased attack surface
+Aplicado según nota: para permitir conectividad con redhat6 (cdplin07/23/65) etc
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening#system-wide-crypto-policies_using-the-system-wide-cryptographic-policies
+
+===================
+Para desbloquear usuario Por Intentos fallidos de autenticación en linux redhat:
+-primero usar usermod -U deployuser y pasad -u deployuser
+Si no funciona, por ultimo usar el siguiente comando:
+pam_tally2  --user=oracle --reset
+
+sin usuario: deployuser
+cdplin66
+cdplin139
+cdplin81
+cdplin93
+cdplin99
+cdplin30
+caplin135
+cdplin120
+cdplin110
+cdplin13
+cdplin126
+cdplin127
+cdplin18
+
+sin sudo:
+cdplin134/136/137/138
+
+compatibilidad python con ansible - matrix
+https://access.redhat.com/solutions/6879401
+
+How to Install Python3 (3.12.1) on RHEL6 & RHEL7
+https://www.turbogeek.co.uk/install-python3-6-on-red-hat-6-rhel6-rhel7/#How_to_install_Python_3121_from_the_source_code
+
+
+================Connect your Ansible Client to Artifactory========
+https://jfrog.com/help/r/jfrog-artifactory-documentation/connect-your-ansible-client-to-artifactory
+
+=======Download artifact from JFrog Artifactory by using Ansible playbook=====
+https://stackoverflow.com/questions/57389939/download-artifact-from-jfrog-artifactory-by-using-ansible-playbook
+
+======Downloads an Artifact from a Maven Repository=======
+Downloads an Artifact from a Maven Repository
+https://docs.ansible.com/ansible/latest/collections/community/general/maven_artifact_module.html#community-general-maven-artifact-module-downloads-an-artifact-from-a-maven-repository
+
+
+
+
+

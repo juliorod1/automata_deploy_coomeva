@@ -1,0 +1,13 @@
+---
+- hosts: soa
+  remote_user: deployus
+  become: yes
+  gather_facts: false
+  vars:
+    app_play: 'NO APLICA'
+  tasks:
+    - name: Tareas a en PLAY reservado
+      shell:
+        cmd: echo Tareas a en PLAY
+  roles:
+    - deploy_soa

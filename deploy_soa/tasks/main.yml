@@ -1,0 +1,111 @@
+---
+###  transferir multiples archivo
+#- name: Desplegar múltiples archivos para SOA-scripts creacion de colas y bar
+#  hosts: soa
+#  vars:
+#    otro: otro
+    - name: Verificar si el archivo local existe en el controller
+      stat:
+        path: "{{ local_ruta }}/{{ item }}"
+      register: archivo_verificado
+      with_items: "{{ archivos_a_transferir | reject('equalto', 'NO_APLICA') | list }}"
+      delegate_to: localhost
+
+    - name: Mostrar mensaje si el archivo no existe y FALLA playbook
+      fail:
+        msg: "Error: El archivo local '{{ item.invocation.module_args.path }}' no existe. No se puede realizar la transferencia."
+      loop: "{{ archivo_verificado.results }}"
+      when: not item.stat.exists
+      delegate_to: localhost
+
+    - name: Mostrar mensaje si el archivo SI existe
+      debug:
+        msg: "OK: El archivo local '{{ item.invocation.module_args.path }}' SI existe. SI se puede realizar la transferencia."
+      loop: "{{ archivo_verificado.results }}"
+      when: item.stat.exists  
+
+    - name: Copiar archivo al servidor remoto (solo si existe localmente)
+      copy:
+        src: "{{ local_ruta }}/{{ item.item }}"
+        dest: "{{ dest_files }}/{{ cambio }}/"
+        owner: "{{ usuario_aplicacion }}"
+        group: "{{ grupo_aplicacion }}"
+        mode: '0644'
+      loop: "{{ archivo_verificado.results }}"
+      when: item.stat.exists and item.item != 'NO_APLICA'
+        #transfiere template
+    - name: Template script shell template_broker.sh para desplegar app broquer {{servidor}}
+      ansible.builtin.template:
+        src: /ansible/deploy_soa/templates/template_broquer.sh
+        dest: "{{ dest_template }}/template_deploy_{{ cambio }}.sh"
+        owner: "{{ usuario_aplicacion }}"
+        group: "{{ grupo_aplicacion }}"
+        mode: '0755'
+
+    - name:  calculándo  ejecución remota en crontab de {{ servidor }}
+      debug:
+        msg: |
+          now_datetime: {{ now_datetime }}
+          at_datetime: {{at_datetime}}
+          at_seconds: {{at_seconds}}
+          at_minutes: {{at_minutes}}
+
+    - name: programando la  ejecucion de '{{dest_template}}/template_deploy_{{cambio}}.sh'
+      ansible.posix.at:
+        command: SHELL=/bin/bash su - mqm -c "/usr/bin/bash {{dest_template}}/template_deploy_{{cambio}}.sh > {{dest_log}}/log_ejecucion_soa_{{cambio}}.log"
+        count: "{{ at_minutes }}"
+        units: minutes
+      become: yes
+
+    - name: Verificando programación.
+      command: at -lv
+      register: out
+
+    - name: Muestra programación at-l
+      debug:
+        var: out.stdout
+#---
+#move archivos locales del cambio a historico
+    - name: Crear directorio de destino local si no existe
+      file:
+        path: "{{ local_ejecutado }}/{{ cambio }}/"
+        state: directory
+      delegate_to: localhost
+      ignore_errors: yes
+
+    - name: Filtrar la lista de archivos excluyendo el archivo específico
+      set_fact:
+        archivos_a_mover: "{{ archivos_a_transferir | reject('equalto', 'NO_APLICA') | list }}"
+      delegate_to: localhost  
+      ignore_errors: yes
+
+    - name: Mover archivos al directorio de destino local
+      copy:
+        src: "{{ local_ruta }}/{{ item }}"
+        dest: "{{ local_ejecutado }}/{{ cambio }}/"
+        remote_src: yes  # Indica que la fuente está en el host donde se ejecuta este playbook (localhost)
+        seuser: system_u
+        serole: object_r
+        #setype: cifs_t
+        selevel: s0
+        setype: unconfined_t
+        #secontext: system_u:object_r:cifs_t:s0 #Selinux, tener en cuenta el contexto
+      loop: "{{ archivos_a_mover }}"
+      delegate_to: localhost
+      ignore_errors: yes
+
+
+    - name: Eliminar archivos del directorio local original (excepto el excluido)
+      file:
+        path: "{{ local_ruta }}/{{ item }}"
+        state: absent
+      loop: "{{ archivos_a_mover }}"
+      delegate_to: localhost
+      ignore_errors: yes
+
+    - name: Opcional- Mostrar los archivos movidos
+      debug:
+        msg: "Archivo movido: {{ item }}"
+      loop: "{{ archivos_a_mover }}"
+      delegate_to: localhost
+      ignore_errors: yes

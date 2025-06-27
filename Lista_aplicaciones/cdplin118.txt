@@ -1,0 +1,16 @@
+/opt/jboss-as-7.1.1.Final/standalone_03/deployments/sitacem-ws.war
+/opt/jboss-as-7.1.1.Final/standalone_03/deployments/cem-ws.war
+/opt/jboss-as-7.1.1.Final/standalone_03/deployments/admincem-ws.war
+/opt/jboss-as-7.1.1.Final/standalone_03/deployments/hcem-ws.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/usuarioparentesco-web.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/empresasegura-web.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/auditoriacem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/cem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_02/deployments/cobertura-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/admincem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/cem-pir.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/invcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/portalcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/sitacem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/hcem-web.war
+/opt/jboss-as-7.1.1.Final/standalone_01/deployments/aficem-web.war

@@ -1,0 +1,1 @@
+/opt/jboss-eap-7.1/standalone/deployments/formato-postulante-gobierno-app.war
