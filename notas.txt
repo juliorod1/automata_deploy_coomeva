@@ -1,0 +1,14 @@
+git init
+git remote add origin https://github.com/juliorod1/automata_deploy_coomeva
+git add .
+git config --global user.email "juliorod@kyndryl.com"
+git config --global user.name "juliorod1"
+git commit -m "remueve awx dir"
+git branch --set-upstream-to=origin/main main -->defino cómo sincronizar
+git pull https://github.com/juliorod1/automata_deploy_coomeva main
+git push origin master 
+git push origin main
+
+
+
+https://docs.github.com/es/get-started
