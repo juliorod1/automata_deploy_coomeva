@@ -12,12 +12,6 @@ echo "			AUTOMATIZACION DESPLIEGUE APPLICACIONES COOMEVA"
 echo "			==============================================="
 echo
 
-
-
-
-
-
-
 echo "Este mensaje se muestra después de cada selección."
 
 #########Funcion para cancelar la programacion de un cambio de jboss#####
